@@ -1,7 +1,21 @@
-# This is my first basic calculator
-num1 = float(input("Enter the first number: "))
-num2 = float(input("Enter the second number: "))
+# Updated Calculator Project
+try:
+    num1 = float(input("Enter first number: "))
+    op = input("Enter operator (+, -, *, /): ")
+    num2 = float(input("Enter second number: "))
 
-Result = num1 + num2
-
-print("The sum is :", Result)
+    if op == "+":
+        print("Result:", num1 + num2)
+    elif op == "-":
+        print("Result:", num1 - num2)
+    elif op == "*":
+        print("Result:", num1 * num2)
+    elif op == "/":
+        if num2 != 0:
+            print("Result:", num1 / num2)
+        else:
+            print("Error: Cannot divide by zero!")
+    else:
+        print("Invalid Operator!")
+except ValueError:
+    print("Error: Please enter valid numbers!")
