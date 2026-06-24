@@ -15,7 +15,6 @@ Basic_calc_v5.py is the main file going forward — all future improvements
 and fixes will be made directly in this file (tracked via commit history).
 
 ## Current limitations (in v5)
-- Uses eval() for calculation — needs safer replacement
 - History feature (present in v4) not yet added to GUI
 
 ## Tech used
