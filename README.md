@@ -20,3 +20,7 @@ and fixes will be made directly in this file (tracked via commit history).
 
 ## Tech used
 Python, Tkinter
+
+## Note on commit history
+Early commit messages (v1, v2) are a bit unclear since I was new to Git. 
+From v3 onwards, commit messages are more descriptive and structured.
