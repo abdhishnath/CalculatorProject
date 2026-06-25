@@ -14,9 +14,6 @@ v1 to v4 are kept as-is to show learning progression.
 Basic_calc_v5.py is the main file going forward — all future improvements 
 and fixes will be made directly in this file (tracked via commit history).
 
-## Current limitations (in v5)
-- History feature (present in v4) not yet added to GUI
-
 ## Tech used
 Python, Tkinter
 
