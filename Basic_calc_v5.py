@@ -1,8 +1,11 @@
-# Calculator v5 - Edited
+# Calculator v6 - Added history and backspace feature
 # Transition from terminal calculator to GUI design
 
 import tkinter as tk
+from tkinter import messagebox
 from math import sqrt
+
+history = []
 
 
 class Calculator:
@@ -18,8 +21,8 @@ calc = Calculator()
 
 # GUI setup
 root = tk.Tk()
-root.title("Real Life Calculator")
-root.geometry("320x400")
+root.title("Calculator")
+root.geometry("320x450")
 
 # Entry display
 entry = tk.Entry(root, width=20, font=("Arial", 18), bd=5, relief="ridge", justify="right")
@@ -33,6 +36,12 @@ def click_button(value):
 
 def clear_entry():
     entry.delete(0, tk.END)
+
+
+def backspace():
+    current = entry.get()
+    if current:
+        entry.delete(len(current)-1, tk.END)
 
 
 def calculate():
@@ -52,6 +61,7 @@ def calculate():
                 elif op == "/":
                     result = calc.divide(num1, num2)
 
+                history.append(f"{expression} = {result}")
                 entry.delete(0, tk.END)
                 entry.insert(0, str(result))
                 return
@@ -63,13 +73,21 @@ def calculate():
         entry.insert(0, "Error")
 
 
+def show_history():
+    if len(history) == 0:
+        messagebox.showinfo("History", "No calculations done yet!")
+    else:
+        messagebox.showinfo("History", "\n".join(history))
+
+
 # Buttons layout
 buttons = [
     ("7", 1, 0), ("8", 1, 1), ("9", 1, 2), ("/", 1, 3),
     ("4", 2, 0), ("5", 2, 1), ("6", 2, 2), ("*", 2, 3),
     ("1", 3, 0), ("2", 3, 1), ("3", 3, 2), ("-", 3, 3),
     ("0", 4, 0), (".", 4, 1), ("+", 4, 2), ("=", 4, 3),
-    ("C", 5, 0), ("^", 5, 1), ("V", 5, 2)
+    ("C", 5, 0), ("⌫", 5, 1), ("^", 5, 2), ("V", 5, 3),
+    ("History", 6, 0)
 ]
 
 for (text, row, col) in buttons:
@@ -77,13 +95,23 @@ for (text, row, col) in buttons:
         action = calculate
     elif text == "C":
         action = clear_entry
+    elif text == "⌫":
+        action = backspace
     elif text == "V":
         action = lambda: entry.insert(tk.END, "**0.5")
     elif text == "^":
         action = lambda: entry.insert(tk.END, "**")
+    elif text == "History":
+        action = show_history
     else:
         action = lambda val=text: click_button(val)
 
-    tk.Button(root, text=text, width=5, height=2, command=action).grid(row=row, column=col, padx=5, pady=5)
+    if text == "History":
+        tk.Button(root, text=text, width=24, height=2, command=action).grid(
+            row=row, column=0, columnspan=4, padx=5, pady=5
+        )
+    else:
+        tk.Button(root, text=text, width=5, height=2, command=action).grid(
+            row=row, column=col, padx=5, pady=5)
 
 root.mainloop()
